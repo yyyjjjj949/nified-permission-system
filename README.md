@@ -83,6 +83,8 @@ mvn "-Dmaven.repo.local=D:\CodexData\cache\m2" spring-boot:run
 
 完整的 Postman 请求顺序和接口清单见 [docs/rbac-api.md](docs/rbac-api.md)。
 
+可直接导入 Postman 的完整验收集合位于 [docs/postman/unified-permission-system.postman_collection.json](docs/postman/unified-permission-system.postman_collection.json)。导入后把 `baseUrl` 设置为应用地址，按编号顺序执行即可验证登录、JWT、权限回收和注销。
+
 ## 测试和构建
 
 ```powershell
@@ -91,6 +93,8 @@ mvn "-Dmaven.repo.local=D:\CodexData\cache\m2" clean package
 ```
 
 集成测试覆盖了 RBAC0 多角色权限合并、权限回收、密码登录和令牌注销。
+
+RBAC0 模型、数据表、业务流程和验收范围见 [docs/rbac0-design.md](docs/rbac0-design.md)；两台服务器的 MySQL、应用包和环境变量部署步骤见 [docs/deployment-two-servers.md](docs/deployment-two-servers.md)。
 
 ## MySQL 部署
 
