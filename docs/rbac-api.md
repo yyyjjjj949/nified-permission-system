@@ -1,6 +1,8 @@
 # RBAC0 基础接口
 
-当前项目使用 H2 内存数据库启动，应用停止后数据会清空。接口没有引入外部工程，所有代码都在本项目中。
+当前项目使用 H2 内存数据库启动，应用停止后数据会清空。CloneFactory 注解处理器
+源码随项目保存在 `third-party/clonefactory`，首次构建步骤见
+[CloneFactory 集成说明](clonefactory.md)。
 
 启动：
 

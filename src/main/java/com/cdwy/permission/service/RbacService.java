@@ -1,5 +1,6 @@
 package com.cdwy.permission.service;
 
+import cn.edu.xmu.clonefactory.util.CloneFactory;
 import com.cdwy.permission.dto.CreatePermissionRequest;
 import com.cdwy.permission.dto.CreateRoleRequest;
 import com.cdwy.permission.dto.CreateSystemRequest;
@@ -75,7 +76,8 @@ public class RbacService {
         if (userRepository.existsByUsername(request.username())) {
             throw new ConflictException("用户名已存在: " + request.username());
         }
-        return toUserResponse(userRepository.save(new UserAccount(request.username(), request.displayName())));
+        UserAccount user = CloneFactory.copy(new UserAccount(request.username(), request.displayName()), request);
+        return toUserResponse(userRepository.save(user));
     }
 
     public List<UserResponse> listUsers() {
@@ -85,8 +87,7 @@ public class RbacService {
     @Transactional
     public UserResponse updateUser(Long userId, UpdateUserRequest request) {
         UserAccount user = getUser(userId);
-        user.setDisplayName(request.displayName());
-        user.setEnabled(request.enabled());
+        CloneFactory.copyNotNull(user, request);
         return toUserResponse(userRepository.save(user));
     }
 
@@ -307,21 +308,18 @@ public class RbacService {
     }
 
     private UserResponse toUserResponse(UserAccount user) {
-        return new UserResponse(user.getId(), user.getUsername(), user.getDisplayName(), user.isEnabled());
+        return CloneFactory.copy(new UserResponse(), user);
     }
 
     private RoleResponse toRoleResponse(Role role) {
-        return new RoleResponse(role.getId(), role.getCode(), role.getName(), role.getDescription(), role.isEnabled());
+        return CloneFactory.copy(new RoleResponse(), role);
     }
 
     private SystemResponse toSystemResponse(BusinessSystem system) {
-        return new SystemResponse(system.getId(), system.getCode(), system.getName(),
-                system.getBaseUrl(), system.isEnabled());
+        return CloneFactory.copy(new SystemResponse(), system);
     }
 
     private PermissionResponse toPermissionResponse(Permission permission) {
-        BusinessSystem system = permission.getSystem();
-        return new PermissionResponse(permission.getId(), system.getId(), system.getCode(),
-                permission.getCode(), permission.getName(), permission.getMenuPath());
+        return CloneFactory.copy(new PermissionResponse(), permission);
     }
 }

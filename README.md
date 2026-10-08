@@ -12,6 +12,27 @@
 - Maven
 - BCrypt 密码摘要
 
+## CloneFactory 对象映射
+
+项目集成了编译期生成对象拷贝代码的 `CloneFactory`。实现源码和 Maven 工程位于
+`third-party/clonefactory`，坐标为 `cn.edu.xmu:clonefactory:0.0.1-SNAPSHOT`。
+首次构建时先把这个内置依赖安装到本地 Maven 仓库：
+
+```powershell
+$env:JAVA_HOME = 'C:\Users\姚景云\.jdks\corretto-21.0.12.1'
+$env:Path = "$env:JAVA_HOME\bin;$env:Path"
+cd D:\nified-permission-system\third-party\clonefactory
+mvn "-Dmaven.repo.local=D:\CodexData\cache\m2" clean install
+cd D:\nified-permission-system
+mvn "-Dmaven.repo.local=D:\CodexData\cache\m2" clean test
+```
+
+业务 DTO 使用 `@CopyTo`、`@CopyFrom` 和 `@CopyNotNullTo` 声明映射关系，
+`RbacService` 通过生成的 `CloneFactory.copy(...)` 与
+`CloneFactory.copyNotNull(...)` 完成 DTO 和实体之间的转换。编译后生成的
+`CloneFactory.java` 位于 `target/generated-sources/annotations`，不需要手动编辑。
+更多注解和故障排查说明见 [docs/clonefactory.md](docs/clonefactory.md)。
+
 ## 当前功能
 
 - 用户、角色、业务系统、菜单权限的增删改查
@@ -33,6 +54,8 @@ src/main/java/com/cdwy/permission
 ├── entity       JPA 持久化对象
 ├── repository   Spring Data JPA 数据访问层
 └── service      RBAC0 和认证业务逻辑
+third-party
+└── clonefactory  CloneFactory 注解处理器源码
 docs
 ├── database-mysql.sql
 └── rbac-api.md

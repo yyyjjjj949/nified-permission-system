@@ -59,6 +59,10 @@ public class Role {
         return enabled;
     }
 
+    public boolean getEnabled() {
+        return enabled;
+    }
+
     public void setCode(String code) {
         this.code = code;
     }

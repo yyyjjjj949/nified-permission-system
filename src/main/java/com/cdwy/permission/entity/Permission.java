@@ -64,6 +64,14 @@ public class Permission {
         return system;
     }
 
+    public Long getSystemId() {
+        return system == null ? null : system.getId();
+    }
+
+    public String getSystemCode() {
+        return system == null ? null : system.getCode();
+    }
+
     public void setCode(String code) {
         this.code = code;
     }
