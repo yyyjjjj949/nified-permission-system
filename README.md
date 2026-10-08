@@ -19,7 +19,7 @@
 - 角色分配和回收权限
 - RBAC0 权限并集计算，多个角色的权限自动合并去重
 - BCrypt 密码保存和登录接口
-- Bearer Token 登录、注销和令牌校验
+- JWT Bearer Token 登录、注销和令牌校验
 - 受保护示例接口的后端权限校验
 - MySQL 建表脚本和生产环境配置模板
 
@@ -105,4 +105,4 @@ mvn "-Dmaven.repo.local=D:\CodexData\cache\m2" "-Dspring-boot.run.profiles=prod"
 
 生产配置位于 `src/main/resources/application-prod.yml`，密码通过环境变量提供，不写入源码。
 
-当前令牌服务使用单机内存，重启后令牌会失效；部署到多台应用服务器时应替换为共享 Redis 或 JWT 方案。
+JWT 密钥通过 `PERMISSION_JWT_SECRET` 环境变量配置，令牌默认 2 小时过期。部署到多台应用服务器时，所有实例必须使用相同的 JWT 密钥；注销黑名单当前保存在单机内存中，后续可替换为 Redis 以实现跨实例注销。

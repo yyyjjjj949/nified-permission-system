@@ -49,7 +49,7 @@ public class RbacService {
     private final UserRoleRepository userRoleRepository;
     private final RolePermissionRepository rolePermissionRepository;
     private final PasswordEncoder passwordEncoder;
-    private final SessionTokenService sessionTokenService;
+    private final JwtTokenService jwtTokenService;
 
     public RbacService(
             UserAccountRepository userRepository,
@@ -59,7 +59,7 @@ public class RbacService {
             UserRoleRepository userRoleRepository,
             RolePermissionRepository rolePermissionRepository,
             PasswordEncoder passwordEncoder,
-            SessionTokenService sessionTokenService) {
+            JwtTokenService jwtTokenService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.systemRepository = systemRepository;
@@ -67,7 +67,7 @@ public class RbacService {
         this.userRoleRepository = userRoleRepository;
         this.rolePermissionRepository = rolePermissionRepository;
         this.passwordEncoder = passwordEncoder;
-        this.sessionTokenService = sessionTokenService;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Transactional
@@ -110,7 +110,7 @@ public class RbacService {
                 .filter(account -> account.getPasswordHash() != null)
                 .filter(account -> passwordEncoder.matches(request.password(), account.getPasswordHash()))
                 .orElseThrow(AuthenticationFailedException::new);
-        String accessToken = sessionTokenService.issue(user.getId());
+        String accessToken = jwtTokenService.issue(user.getId());
         return new LoginResponse(accessToken, user.getId(), user.getUsername(), user.getDisplayName(),
                 effectivePermissions(user.getId()));
     }

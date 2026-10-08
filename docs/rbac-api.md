@@ -57,11 +57,13 @@ mvn "-Dmaven.repo.local=D:\CodexData\cache\m2" spring-boot:run
 {"username":"zhangsan","password":"password-123"}
 ```
 
-响应中的 `accessToken` 用于后续接口的 `Authorization: Bearer <accessToken>` 请求头。密码只保存 BCrypt 摘要，登录响应不会返回密码。
+响应中的 `accessToken` 是 JWT，用于后续接口的 `Authorization: Bearer <accessToken>` 请求头，默认有效期为 2 小时。密码只保存 BCrypt 摘要，登录响应不会返回密码。
 
 10. 调用受保护示例接口：`GET /api/demo/expenses`，并添加请求头 `Authorization: Bearer <accessToken>`。拥有 `expense:list` 时返回 `200`，移除角色后返回 `403`。
 
 11. 注销：`POST /api/auth/logout`，添加同一个 `Authorization` 请求头；注销后令牌返回 `401`。
+
+生产环境通过 `PERMISSION_JWT_SECRET` 设置至少 32 个字节的密钥；两台应用服务器必须使用同一个值。
 
 ## 其他接口
 

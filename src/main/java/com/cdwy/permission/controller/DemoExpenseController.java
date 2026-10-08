@@ -1,7 +1,7 @@
 package com.cdwy.permission.controller;
 
 import com.cdwy.permission.service.RbacService;
-import com.cdwy.permission.service.SessionTokenService;
+import com.cdwy.permission.service.JwtTokenService;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoExpenseController {
 
     private final RbacService rbacService;
-    private final SessionTokenService sessionTokenService;
+    private final JwtTokenService jwtTokenService;
 
-    public DemoExpenseController(RbacService rbacService, SessionTokenService sessionTokenService) {
+    public DemoExpenseController(RbacService rbacService, JwtTokenService jwtTokenService) {
         this.rbacService = rbacService;
-        this.sessionTokenService = sessionTokenService;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @GetMapping
     public Map<String, Object> list(
             @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authorization) {
-        Long userId = sessionTokenService.requireUserId(authorization);
+        Long userId = jwtTokenService.requireUserId(authorization);
         rbacService.assertPermission(userId, "expense:list");
         return Map.of(
                 "userId", userId,

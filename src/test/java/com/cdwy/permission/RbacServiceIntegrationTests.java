@@ -14,7 +14,7 @@ import com.cdwy.permission.dto.SetPasswordRequest;
 import com.cdwy.permission.dto.UserResponse;
 import com.cdwy.permission.exception.ForbiddenException;
 import com.cdwy.permission.service.RbacService;
-import com.cdwy.permission.service.SessionTokenService;
+import com.cdwy.permission.service.JwtTokenService;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class RbacServiceIntegrationTests {
     private RbacService rbacService;
 
     @Autowired
-    private SessionTokenService sessionTokenService;
+    private JwtTokenService jwtTokenService;
 
     @Test
     void rolesAreMergedAndRevocationTakesEffectImmediately() {
@@ -57,7 +57,7 @@ class RbacServiceIntegrationTests {
         assertTrue(login.accessToken() != null && !login.accessToken().isBlank());
         assertEquals(user.id(), login.userId());
         assertEquals(2, login.permissions().size());
-        assertEquals(user.id(), sessionTokenService.requireUserId("Bearer " + login.accessToken()));
+        assertEquals(user.id(), jwtTokenService.requireUserId("Bearer " + login.accessToken()));
 
         rbacService.removeRole(user.id(), viewer.id());
         assertFalse(rbacService.hasPermission(user.id(), "expense:list"));
@@ -66,9 +66,9 @@ class RbacServiceIntegrationTests {
                 ForbiddenException.class,
                 () -> rbacService.assertPermission(user.id(), "expense:list"));
 
-        sessionTokenService.revoke("Bearer " + login.accessToken());
+        jwtTokenService.revoke("Bearer " + login.accessToken());
         org.junit.jupiter.api.Assertions.assertThrows(
                 com.cdwy.permission.exception.AuthenticationFailedException.class,
-                () -> sessionTokenService.requireUserId("Bearer " + login.accessToken()));
+                () -> jwtTokenService.requireUserId("Bearer " + login.accessToken()));
     }
 }

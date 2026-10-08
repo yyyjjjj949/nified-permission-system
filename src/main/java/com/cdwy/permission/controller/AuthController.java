@@ -2,8 +2,8 @@ package com.cdwy.permission.controller;
 
 import com.cdwy.permission.dto.LoginRequest;
 import com.cdwy.permission.dto.LoginResponse;
+import com.cdwy.permission.service.JwtTokenService;
 import com.cdwy.permission.service.RbacService;
-import com.cdwy.permission.service.SessionTokenService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final RbacService rbacService;
-    private final SessionTokenService sessionTokenService;
+    private final JwtTokenService jwtTokenService;
 
-    public AuthController(RbacService rbacService, SessionTokenService sessionTokenService) {
+    public AuthController(RbacService rbacService, JwtTokenService jwtTokenService) {
         this.rbacService = rbacService;
-        this.sessionTokenService = sessionTokenService;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @PostMapping("/login")
@@ -33,7 +33,7 @@ public class AuthController {
     public ResponseEntity<Void> logout(
             @org.springframework.web.bind.annotation.RequestHeader(
                     value = HttpHeaders.AUTHORIZATION, required = false) String authorization) {
-        sessionTokenService.revoke(authorization);
+        jwtTokenService.revoke(authorization);
         return ResponseEntity.noContent().build();
     }
 }

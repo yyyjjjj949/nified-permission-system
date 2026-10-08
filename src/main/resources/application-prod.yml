@@ -14,3 +14,8 @@ spring:
   h2:
     console:
       enabled: false
+
+permission:
+  jwt:
+    secret: ${PERMISSION_JWT_SECRET}
+    expiration-seconds: ${PERMISSION_JWT_EXPIRATION_SECONDS:7200}
