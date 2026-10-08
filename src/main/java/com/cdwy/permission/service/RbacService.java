@@ -1,0 +1,327 @@
+package com.cdwy.permission.service;
+
+import com.cdwy.permission.dto.CreatePermissionRequest;
+import com.cdwy.permission.dto.CreateRoleRequest;
+import com.cdwy.permission.dto.CreateSystemRequest;
+import com.cdwy.permission.dto.CreateUserRequest;
+import com.cdwy.permission.dto.LoginRequest;
+import com.cdwy.permission.dto.LoginResponse;
+import com.cdwy.permission.dto.PermissionResponse;
+import com.cdwy.permission.dto.RoleResponse;
+import com.cdwy.permission.dto.SetPasswordRequest;
+import com.cdwy.permission.dto.SystemResponse;
+import com.cdwy.permission.dto.UpdatePermissionRequest;
+import com.cdwy.permission.dto.UpdateRoleRequest;
+import com.cdwy.permission.dto.UpdateSystemRequest;
+import com.cdwy.permission.dto.UpdateUserRequest;
+import com.cdwy.permission.dto.UserResponse;
+import com.cdwy.permission.entity.BusinessSystem;
+import com.cdwy.permission.entity.Permission;
+import com.cdwy.permission.entity.Role;
+import com.cdwy.permission.entity.RolePermission;
+import com.cdwy.permission.entity.UserAccount;
+import com.cdwy.permission.entity.UserRole;
+import com.cdwy.permission.exception.AuthenticationFailedException;
+import com.cdwy.permission.exception.ConflictException;
+import com.cdwy.permission.exception.ForbiddenException;
+import com.cdwy.permission.exception.ResourceNotFoundException;
+import com.cdwy.permission.repository.BusinessSystemRepository;
+import com.cdwy.permission.repository.PermissionRepository;
+import com.cdwy.permission.repository.RolePermissionRepository;
+import com.cdwy.permission.repository.RoleRepository;
+import com.cdwy.permission.repository.UserAccountRepository;
+import com.cdwy.permission.repository.UserRoleRepository;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(readOnly = true)
+public class RbacService {
+
+    private final UserAccountRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final BusinessSystemRepository systemRepository;
+    private final PermissionRepository permissionRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final RolePermissionRepository rolePermissionRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final SessionTokenService sessionTokenService;
+
+    public RbacService(
+            UserAccountRepository userRepository,
+            RoleRepository roleRepository,
+            BusinessSystemRepository systemRepository,
+            PermissionRepository permissionRepository,
+            UserRoleRepository userRoleRepository,
+            RolePermissionRepository rolePermissionRepository,
+            PasswordEncoder passwordEncoder,
+            SessionTokenService sessionTokenService) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.systemRepository = systemRepository;
+        this.permissionRepository = permissionRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.rolePermissionRepository = rolePermissionRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.sessionTokenService = sessionTokenService;
+    }
+
+    @Transactional
+    public UserResponse createUser(CreateUserRequest request) {
+        if (userRepository.existsByUsername(request.username())) {
+            throw new ConflictException("用户名已存在: " + request.username());
+        }
+        return toUserResponse(userRepository.save(new UserAccount(request.username(), request.displayName())));
+    }
+
+    public List<UserResponse> listUsers() {
+        return userRepository.findAll().stream().map(this::toUserResponse).toList();
+    }
+
+    @Transactional
+    public UserResponse updateUser(Long userId, UpdateUserRequest request) {
+        UserAccount user = getUser(userId);
+        user.setDisplayName(request.displayName());
+        user.setEnabled(request.enabled());
+        return toUserResponse(userRepository.save(user));
+    }
+
+    @Transactional
+    public void deleteUser(Long userId) {
+        getUser(userId);
+        userRoleRepository.deleteAllByUser_Id(userId);
+        userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public void setPassword(Long userId, SetPasswordRequest request) {
+        UserAccount user = getUser(userId);
+        user.setPasswordHash(passwordEncoder.encode(request.password()));
+        userRepository.save(user);
+    }
+
+    public LoginResponse login(LoginRequest request) {
+        UserAccount user = userRepository.findByUsername(request.username())
+                .filter(UserAccount::isEnabled)
+                .filter(account -> account.getPasswordHash() != null)
+                .filter(account -> passwordEncoder.matches(request.password(), account.getPasswordHash()))
+                .orElseThrow(AuthenticationFailedException::new);
+        String accessToken = sessionTokenService.issue(user.getId());
+        return new LoginResponse(accessToken, user.getId(), user.getUsername(), user.getDisplayName(),
+                effectivePermissions(user.getId()));
+    }
+
+    @Transactional
+    public RoleResponse createRole(CreateRoleRequest request) {
+        if (roleRepository.existsByCode(request.code())) {
+            throw new ConflictException("角色编码已存在: " + request.code());
+        }
+        Role role = roleRepository.save(new Role(request.code(), request.name(), request.description()));
+        return toRoleResponse(role);
+    }
+
+    public List<RoleResponse> listRoles() {
+        return roleRepository.findAll().stream().map(this::toRoleResponse).toList();
+    }
+
+    @Transactional
+    public RoleResponse updateRole(Long roleId, UpdateRoleRequest request) {
+        Role role = getRole(roleId);
+        role.setName(request.name());
+        role.setDescription(request.description());
+        role.setEnabled(request.enabled());
+        return toRoleResponse(roleRepository.save(role));
+    }
+
+    @Transactional
+    public void deleteRole(Long roleId) {
+        getRole(roleId);
+        rolePermissionRepository.deleteAllByRole_Id(roleId);
+        userRoleRepository.deleteAllByRole_Id(roleId);
+        roleRepository.deleteById(roleId);
+    }
+
+    @Transactional
+    public SystemResponse createSystem(CreateSystemRequest request) {
+        if (systemRepository.existsByCode(request.code())) {
+            throw new ConflictException("业务系统编码已存在: " + request.code());
+        }
+        BusinessSystem system = systemRepository.save(
+                new BusinessSystem(request.code(), request.name(), request.baseUrl()));
+        return toSystemResponse(system);
+    }
+
+    public List<SystemResponse> listSystems() {
+        return systemRepository.findAll().stream().map(this::toSystemResponse).toList();
+    }
+
+    @Transactional
+    public SystemResponse updateSystem(Long systemId, UpdateSystemRequest request) {
+        BusinessSystem system = getSystem(systemId);
+        system.setName(request.name());
+        system.setBaseUrl(request.baseUrl());
+        system.setEnabled(request.enabled());
+        return toSystemResponse(systemRepository.save(system));
+    }
+
+    @Transactional
+    public void deleteSystem(Long systemId) {
+        getSystem(systemId);
+        permissionRepository.findAllBySystem_Id(systemId)
+                .forEach(permission -> deletePermission(permission.getId()));
+        systemRepository.deleteById(systemId);
+    }
+
+    @Transactional
+    public PermissionResponse createPermission(CreatePermissionRequest request) {
+        if (permissionRepository.existsByCode(request.code())) {
+            throw new ConflictException("权限编码已存在: " + request.code());
+        }
+        BusinessSystem system = systemRepository.findById(request.systemId())
+                .orElseThrow(() -> new ResourceNotFoundException("业务系统不存在: " + request.systemId()));
+        Permission permission = permissionRepository.save(
+                new Permission(request.code(), request.name(), request.menuPath(), system));
+        return toPermissionResponse(permission);
+    }
+
+    public List<PermissionResponse> listPermissions(Long systemId) {
+        List<Permission> permissions = systemId == null
+                ? permissionRepository.findAll()
+                : permissionRepository.findAllBySystem_Id(systemId);
+        return permissions.stream().map(this::toPermissionResponse).toList();
+    }
+
+    @Transactional
+    public PermissionResponse updatePermission(Long permissionId, UpdatePermissionRequest request) {
+        Permission permission = getPermission(permissionId);
+        permission.setName(request.name());
+        permission.setMenuPath(request.menuPath());
+        return toPermissionResponse(permissionRepository.save(permission));
+    }
+
+    @Transactional
+    public void deletePermission(Long permissionId) {
+        getPermission(permissionId);
+        rolePermissionRepository.deleteAllByPermission_Id(permissionId);
+        permissionRepository.deleteById(permissionId);
+    }
+
+    @Transactional
+    public void assignRole(Long userId, Long roleId) {
+        UserAccount user = getUser(userId);
+        Role role = getRole(roleId);
+        if (!userRoleRepository.existsByUser_IdAndRole_Id(userId, roleId)) {
+            userRoleRepository.save(new UserRole(user, role));
+        }
+    }
+
+    @Transactional
+    public void removeRole(Long userId, Long roleId) {
+        getUser(userId);
+        getRole(roleId);
+        userRoleRepository.deleteByUser_IdAndRole_Id(userId, roleId);
+    }
+
+    @Transactional
+    public void assignPermission(Long roleId, Long permissionId) {
+        Role role = getRole(roleId);
+        Permission permission = getPermission(permissionId);
+        if (!rolePermissionRepository.existsByRole_IdAndPermission_Id(roleId, permissionId)) {
+            rolePermissionRepository.save(new RolePermission(role, permission));
+        }
+    }
+
+    @Transactional
+    public void removePermission(Long roleId, Long permissionId) {
+        getRole(roleId);
+        getPermission(permissionId);
+        rolePermissionRepository.deleteByRole_IdAndPermission_Id(roleId, permissionId);
+    }
+
+    public List<RoleResponse> listUserRoles(Long userId) {
+        getUser(userId);
+        return userRoleRepository.findAllByUser_Id(userId).stream()
+                .map(UserRole::getRole)
+                .map(this::toRoleResponse)
+                .toList();
+    }
+
+    public List<PermissionResponse> listRolePermissions(Long roleId) {
+        getRole(roleId);
+        return rolePermissionRepository.findAllByRole_Id(roleId).stream()
+                .map(RolePermission::getPermission)
+                .map(this::toPermissionResponse)
+                .toList();
+    }
+
+    public List<PermissionResponse> effectivePermissions(Long userId) {
+        UserAccount user = getUser(userId);
+        if (!user.isEnabled()) {
+            return List.of();
+        }
+
+        Map<String, PermissionResponse> permissionsByCode = new LinkedHashMap<>();
+        userRoleRepository.findAllByUser_Id(userId).stream()
+                .map(UserRole::getRole)
+                .filter(Role::isEnabled)
+                .forEach(role -> rolePermissionRepository.findAllByRole_Id(role.getId()).stream()
+                        .map(RolePermission::getPermission)
+                        .forEach(permission -> permissionsByCode.putIfAbsent(
+                                permission.getCode(), toPermissionResponse(permission))));
+        return List.copyOf(permissionsByCode.values());
+    }
+
+    public boolean hasPermission(Long userId, String permissionCode) {
+        return effectivePermissions(userId).stream()
+                .anyMatch(permission -> permission.code().equals(permissionCode));
+    }
+
+    public void assertPermission(Long userId, String permissionCode) {
+        if (!hasPermission(userId, permissionCode)) {
+            throw new ForbiddenException("用户没有权限: " + permissionCode);
+        }
+    }
+
+    private UserAccount getUser(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("用户不存在: " + userId));
+    }
+
+    private Role getRole(Long roleId) {
+        return roleRepository.findById(roleId)
+                .orElseThrow(() -> new ResourceNotFoundException("角色不存在: " + roleId));
+    }
+
+    private BusinessSystem getSystem(Long systemId) {
+        return systemRepository.findById(systemId)
+                .orElseThrow(() -> new ResourceNotFoundException("业务系统不存在: " + systemId));
+    }
+
+    private Permission getPermission(Long permissionId) {
+        return permissionRepository.findById(permissionId)
+                .orElseThrow(() -> new ResourceNotFoundException("权限不存在: " + permissionId));
+    }
+
+    private UserResponse toUserResponse(UserAccount user) {
+        return new UserResponse(user.getId(), user.getUsername(), user.getDisplayName(), user.isEnabled());
+    }
+
+    private RoleResponse toRoleResponse(Role role) {
+        return new RoleResponse(role.getId(), role.getCode(), role.getName(), role.getDescription(), role.isEnabled());
+    }
+
+    private SystemResponse toSystemResponse(BusinessSystem system) {
+        return new SystemResponse(system.getId(), system.getCode(), system.getName(),
+                system.getBaseUrl(), system.isEnabled());
+    }
+
+    private PermissionResponse toPermissionResponse(Permission permission) {
+        BusinessSystem system = permission.getSystem();
+        return new PermissionResponse(permission.getId(), system.getId(), system.getCode(),
+                permission.getCode(), permission.getName(), permission.getMenuPath());
+    }
+}
