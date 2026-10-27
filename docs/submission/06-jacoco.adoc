@@ -1,0 +1,101 @@
+= 统一权限管理系统：JaCoCo 与测试说明
+:lang: zh-CN
+:toc: left
+:toc-title: 目录
+:sectnums:
+:sectanchors:
+:source-highlighter: highlight.js
+:icons: font
+
+小组成员：温家正、姚景云、杜奕含、陈浩贤。
+
+文档整理日期：2026-10-28。测试及部署日期以相应记录为准。
+
+== 自动测试结果（2026-10-27）
+
+运行环境：Java 21、Maven 3.9.16、Spring Boot 4.0.8、H2 内存数据库；JaCoCo 0.8.14。
+测试以检出基线 `bd3485e3d09e352b781ac050229a35439bec804d` 加本次修复工作区为输入；该基线号不是最终提交号。
+测试文件版本以 link:evidence/test-summary.json[源码 SHA-256 清单] 为准，清单覆盖生产代码、测试、前端源码及静态资源。
+完整命令为 `mvn -B clean verify`。
+总计 45 项，44 项通过，失败 0、错误 0、跳过 1。
+报告导出时间：2026-10-27T21:09:02.913051+08:00。
+
+[cols="5,1,1,1,1",options="header"]
+|===
+|测试类 |总数 |失败 |错误 |跳过
+|ActualWorkbookImportTests |1 |0 |0 |1
+|AdminAccessIntegrationTests |7 |0 |0 |0
+|AuthenticationHttpIntegrationTests |11 |0 |0 |0
+|CompanyImportIntegrationTests |6 |0 |0 |0
+|NifiedPermissionSystemApplicationTests |1 |0 |0 |0
+|PhaseOneIntegrationTests |18 |0 |0 |0
+|RbacServiceIntegrationTests |1 |0 |0 |0
+|===
+
+`ActualWorkbookImportTests` 依赖 `COMPANY_WORKBOOK_DIR` 指向外部三份 Excel。该次运行未配置此变量，1 项条件测试跳过。
+公司导入的合成工作簿集成测试已执行，包括一万员工、无密码待发放状态、引用关系、幂等和失败回滚。真实 Excel 测试的断言已按当前分表和初始改密策略更新，该条件测试不计入通过项。
+
+== 覆盖率
+
+[cols="2,1,1,1",options="header"]
+|===
+|指标 |已覆盖 |未覆盖 |比例
+|LINE |1195 |441 |73.04%
+|BRANCH |472 |774 |37.88%
+|INSTRUCTION |8825 |6692 |56.87%
+|METHOD |450 |178 |71.66%
+|CLASS |111 |24 |82.22%
+|===
+
+覆盖率由 `jacoco.xml` 根节点计数计算，统计范围包含报告中的全部生产类；未配置覆盖率排除项。
+行覆盖率表示已执行代码行的比例，分支覆盖率表示已执行条件分支的比例。需求验收和负载测试分别记录。
+当前仍存在未覆盖路径，各模块明细可在 HTML 报告中查看。历史版本的覆盖率按其对应源码范围统计。
+
+== 报告文件与查看方式
+
+* link:evidence/jacoco/index.html[JaCoCo HTML 首页]：下载或克隆仓库后用浏览器打开，Gitee 文件页可能只显示源码。
+* link:evidence/jacoco/jacoco.xml[JaCoCo XML]、link:evidence/jacoco/jacoco.csv[CSV 统计]。
+* link:evidence/surefire/[JUnit 测试类摘要]；link:evidence/test-summary.json[汇总、提交号与源码 SHA-256]。
+
+[source,bash]
+----
+# 仓库根目录；先确认 Java 21 与 Maven 3.9+
+java -version
+mvn -version
+mvn -B -f third-party/clonefactory/pom.xml -Dmaven.test.skip=true install
+mvn -B clean verify
+# 浏览器打开 target/site/jacoco/index.html
+python3 scripts/export-evidence.py
+python3 scripts/build-submission-docs.py
+----
+
+Windows 安装的 Python 若命令名为 `python`，相应替换最后两行。
+根项目执行 `clean verify` 时不添加跳过测试参数。网页操作与 JMeter 测试的结果单独记录。
+测试使用隔离 H2，不需要修改云端数据库，也不使用线上管理员凭证。
+
+== 覆盖到的主要行为
+
+* RBAC 权限并集、重叠角色撤回、管理 API 的匿名/普通用户拒绝、管理员字段防批量赋值。
+* JWT 登录、刷新、退出、禁用/删除、密码变更、跨验证器撤销、登录和改密并发、事务回滚。
+* 部门管理范围、初始密码一次发放、外部人员期限、锁定、空闲会话、权限点失效。
+* HR 签名、离职和请求幂等；OA 登记、驳回及冲突；审计范围；导入幂等、回滚和 XML 外部实体拒绝。
+* OIDC discovery 与静态页面可达；这不代表完整 OIDC 授权码流程均被自动测试覆盖。
+
+测试按当前账号分表、权限版本刷新和逻辑删除规则设置断言，覆盖越权、会话撤销、事务回滚和并发场景。
+相关修复包括 CLOB JSON 读取兼容性，以及已删除应用的历史权限在列表查询中的过滤。
+
+== 验证范围与记录
+
+[cols="2,3,4",options="header"]
+|===
+|日期 |验证类型 |记录
+|2026-10-27 |Java / H2 自动测试 |本目录 JaCoCo 与 Surefire 报告
+|2026-10-27 |导入及弹窗修复部署、在线读取检查 |link:07-deployment.adoc[部署与验证记录]
+|2026-10-26 |管理接口及 OIDC 回调 |link:deployment-20261026.json[历史部署记录]
+|2026-10-22 |MySQL 建库、隔离旧结构升级及接口联调 |link:../phase-one/cloud-verification.json[阶段联调记录]
+|2026-10-21 |初版自动测试 |link:../first-check/testing.md[历史测试记录]
+|===
+
+上述记录不包含性能与容量、多实例切换、备份恢复、浏览器逐页回归及外部 OA/HR 产品接入验收。
+重新导出前需完成完整 `clean verify`；导出脚本读取已有产物，不执行测试。
+`test-summary.json` 保存源码 SHA-256，可用于核对报告对应版本。
