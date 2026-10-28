@@ -39,7 +39,7 @@ public class UserController {
 
     @GetMapping
     public List&lt;UserResponse&gt; list() {
-<span class="nc" id="L42">        return rbacService.listUsers();</span>
+<span class="fc" id="L42">        return rbacService.listUsers();</span>
     }
 
     @PutMapping(&quot;/{userId}&quot;)
@@ -77,7 +77,7 @@ public class UserController {
 
     @GetMapping(&quot;/{userId}/roles&quot;)
     public List&lt;RoleResponse&gt; listRoles(@PathVariable Long userId) {
-<span class="nc" id="L80">        return rbacService.listUserRoles(userId);</span>
+<span class="fc" id="L80">        return rbacService.listUserRoles(userId);</span>
     }
 
     @GetMapping(&quot;/{userId}/permissions&quot;)

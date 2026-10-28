@@ -20,11 +20,11 @@ import com.cdwy.permission.entity.UserAccount;
    * @return the copied target object
    */
   public static SystemResponse copy(SystemResponse target, BusinessSystem source) {
-<span class="fc" id="L23">    target.setCode(source.getCode());</span>
-<span class="fc" id="L24">    target.setName(source.getName());</span>
-<span class="fc" id="L25">    target.setBaseUrl(source.getBaseUrl());</span>
-<span class="fc" id="L26">    target.setId(source.getId());</span>
-<span class="fc" id="L27">    target.setEnabled(source.getEnabled());</span>
+<span class="fc" id="L23">    target.setId(source.getId());</span>
+<span class="fc" id="L24">    target.setEnabled(source.getEnabled());</span>
+<span class="fc" id="L25">    target.setCode(source.getCode());</span>
+<span class="fc" id="L26">    target.setName(source.getName());</span>
+<span class="fc" id="L27">    target.setBaseUrl(source.getBaseUrl());</span>
 <span class="fc" id="L28">    return target;</span>
   }
 
@@ -36,11 +36,11 @@ import com.cdwy.permission.entity.UserAccount;
    * @return the copied target object
    */
   public static RoleResponse copy(RoleResponse target, Role source) {
-<span class="fc" id="L39">    target.setDescription(source.getDescription());</span>
-<span class="fc" id="L40">    target.setEnabled(source.getEnabled());</span>
-<span class="fc" id="L41">    target.setName(source.getName());</span>
-<span class="fc" id="L42">    target.setCode(source.getCode());</span>
-<span class="fc" id="L43">    target.setId(source.getId());</span>
+<span class="fc" id="L39">    target.setName(source.getName());</span>
+<span class="fc" id="L40">    target.setDescription(source.getDescription());</span>
+<span class="fc" id="L41">    target.setCode(source.getCode());</span>
+<span class="fc" id="L42">    target.setId(source.getId());</span>
+<span class="fc" id="L43">    target.setEnabled(source.getEnabled());</span>
 <span class="fc" id="L44">    return target;</span>
   }
 
@@ -52,11 +52,11 @@ import com.cdwy.permission.entity.UserAccount;
    * @return the copied target object
    */
   public static UserResponse copy(UserResponse target, UserAccount source) {
-<span class="fc" id="L55">    target.setId(source.getId());</span>
-<span class="fc" id="L56">    target.setDisplayName(source.getDisplayName());</span>
-<span class="fc" id="L57">    target.setAdministrator(source.getAdministrator());</span>
-<span class="fc" id="L58">    target.setEnabled(source.getEnabled());</span>
-<span class="fc" id="L59">    target.setUsername(source.getUsername());</span>
+<span class="fc" id="L55">    target.setUsername(source.getUsername());</span>
+<span class="fc" id="L56">    target.setEnabled(source.getEnabled());</span>
+<span class="fc" id="L57">    target.setDisplayName(source.getDisplayName());</span>
+<span class="fc" id="L58">    target.setId(source.getId());</span>
+<span class="fc" id="L59">    target.setAdministrator(source.getAdministrator());</span>
 <span class="fc" id="L60">    return target;</span>
   }
 
@@ -68,14 +68,14 @@ import com.cdwy.permission.entity.UserAccount;
    * @return the copied target object
    */
   public static PermissionResponse copy(PermissionResponse target, Permission source) {
-<span class="fc" id="L71">    target.setSystemCode(source.getSystemCode());</span>
-<span class="fc" id="L72">    target.setMenuPath(source.getMenuPath());</span>
-<span class="fc" id="L73">    target.setCode(source.getCode());</span>
-<span class="fc" id="L74">    target.setName(source.getName());</span>
-<span class="fc" id="L75">    target.setSystemId(source.getSystemId());</span>
-<span class="fc" id="L76">    target.setType(source.getType());</span>
-<span class="fc" id="L77">    target.setActive(source.getActive());</span>
-<span class="fc" id="L78">    target.setId(source.getId());</span>
+<span class="fc" id="L71">    target.setSystemId(source.getSystemId());</span>
+<span class="fc" id="L72">    target.setName(source.getName());</span>
+<span class="fc" id="L73">    target.setActive(source.getActive());</span>
+<span class="fc" id="L74">    target.setSystemCode(source.getSystemCode());</span>
+<span class="fc" id="L75">    target.setCode(source.getCode());</span>
+<span class="fc" id="L76">    target.setId(source.getId());</span>
+<span class="fc" id="L77">    target.setMenuPath(source.getMenuPath());</span>
+<span class="fc" id="L78">    target.setType(source.getType());</span>
 <span class="fc" id="L79">    return target;</span>
   }
 
@@ -87,8 +87,8 @@ import com.cdwy.permission.entity.UserAccount;
    * @return the copied target object
    */
   public static UserAccount copy(UserAccount target, CreateUserRequest source) {
-<span class="fc" id="L90">    target.setDisplayName(source.getDisplayName());</span>
-<span class="fc" id="L91">    target.setUsername(source.getUsername());</span>
+<span class="fc" id="L90">    target.setUsername(source.getUsername());</span>
+<span class="fc" id="L91">    target.setDisplayName(source.getDisplayName());</span>
 <span class="fc" id="L92">    return target;</span>
   }
 
@@ -100,11 +100,11 @@ import com.cdwy.permission.entity.UserAccount;
    * @return the copied target object
    */
   public static UserAccount copyNotNull(UserAccount target, UpdateUserRequest source) {
-<span class="pc bpc" id="L103" title="1 of 2 branches missed.">    if (null != source.getDisplayName()) {</span>
-<span class="fc" id="L104">      target.setDisplayName(source.getDisplayName());</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">    if (null != source.getEnabled()) {</span>
+<span class="fc" id="L104">      target.setEnabled(source.getEnabled());</span>
     }
-<span class="pc bpc" id="L106" title="1 of 2 branches missed.">    if (null != source.getEnabled()) {</span>
-<span class="fc" id="L107">      target.setEnabled(source.getEnabled());</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">    if (null != source.getDisplayName()) {</span>
+<span class="fc" id="L107">      target.setDisplayName(source.getDisplayName());</span>
     }
 <span class="fc" id="L109">    return target;</span>
   }
