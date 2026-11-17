@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2250" height="1100" viewBox="0 0 2250 1100">
+<rect width="100%" height="100%" fill="white"/>
+<text x="1125.0" y="55" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="30" font-weight="700" fill="#24354b" text-anchor="middle">登录成功顺序图</text>
+<text x="1125.0" y="87" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#60748c" text-anchor="middle">账号和密码验证后签发 JWT · 不创建数据库登录会话</text>
+<rect x="22" y="120" width="236" height="65" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="140" y="161" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="700" fill="#24354b" text-anchor="middle">obj: MVC 分发器</text>
+<polyline points="140,185 140,1065" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="312" y="120" width="236" height="65" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="430" y="161" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="700" fill="#24354b" text-anchor="middle">auth: AuthController</text>
+<polyline points="430,185 430,1065" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="622" y="120" width="236" height="65" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="740" y="161" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="700" fill="#24354b" text-anchor="middle">service: AuthService</text>
+<polyline points="740,185 740,1065" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="962" y="120" width="236" height="65" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="1080" y="157" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="14" font-weight="700" fill="#24354b" text-anchor="middle">users: UserAccountRepository</text>
+<polyline points="1080,185 1080,1065" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="1292" y="120" width="236" height="65" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="1410" y="159" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="700" fill="#24354b" text-anchor="middle">encoder: PasswordEncoder</text>
+<polyline points="1410,185 1410,1065" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="1622" y="120" width="236" height="65" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="1740" y="161" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="700" fill="#24354b" text-anchor="middle">tokens: JwtTokenService</text>
+<polyline points="1740,185 1740,1065" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="1952" y="120" width="236" height="65" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="2070" y="148" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="700" fill="#24354b" text-anchor="middle">«MetaClass»</text>
+<text x="2070" y="173" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="700" fill="#24354b" text-anchor="middle">: UserViews</text>
+<polyline points="2070,185 2070,1065" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="133" y="235" width="14" height="775" fill="#d9e8fa" stroke="#24354b" stroke-width="2"/>
+<rect x="423" y="235" width="14" height="715" fill="#d9e8fa" stroke="#24354b" stroke-width="2"/>
+<rect x="733" y="315" width="14" height="575" fill="#d9e8fa" stroke="#24354b" stroke-width="2"/>
+<rect x="1073" y="400" width="14" height="45" fill="#d9e8fa" stroke="#24354b" stroke-width="2"/>
+<rect x="1403" y="520" width="14" height="45" fill="#d9e8fa" stroke="#24354b" stroke-width="2"/>
+<rect x="1733" y="650" width="14" height="45" fill="#d9e8fa" stroke="#24354b" stroke-width="2"/>
+<rect x="2063" y="780" width="14" height="45" fill="#d9e8fa" stroke="#24354b" stroke-width="2"/>
+<polyline points="147,235 423,235" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polygon points="423,235 412.1946347717679,240.21958640933477 412.1946347717679,229.78041359066523" fill="#758aa4" stroke="#758aa4"/>
+<text x="285.0" y="222" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">1 login(input)</text>
+<polyline points="437,315 733,315" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polygon points="733,315 722.1946347717678,320.21958640933474 722.1946347717678,309.78041359066526" fill="#758aa4" stroke="#758aa4"/>
+<text x="585.0" y="302" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">2 token = login(input)</text>
+<polyline points="747,400 1073,400" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polygon points="1073,400 1062.1946347717678,405.21958640933474 1062.1946347717678,394.78041359066526" fill="#758aa4" stroke="#758aa4"/>
+<text x="910.0" y="387" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">3 user = findByUsername(name)</text>
+<polyline points="747,520 1403,520" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polygon points="1403,520 1392.1946347717678,525.2195864093347 1392.1946347717678,514.7804135906653" fill="#758aa4" stroke="#758aa4"/>
+<text x="1075.0" y="507" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">4 valid = matches(raw, hash)</text>
+<polyline points="747,650 1733,650" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polygon points="1733,650 1722.1946347717678,655.2195864093347 1722.1946347717678,644.7804135906653" fill="#758aa4" stroke="#758aa4"/>
+<text x="1240.0" y="637" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">5 jwt = issue(user)</text>
+<polyline points="747,780 2063,780" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polygon points="2063,780 2052.194634771768,785.2195864093347 2052.194634771768,774.7804135906653" fill="#758aa4" stroke="#758aa4"/>
+<text x="1405.0" y="767" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">6 userView = view(user)</text>
+<polyline points="423,950 147,950" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="157.80536522823212,944.7804135906653 147,950 157.80536522823212,955.2195864093347" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="285.0" y="935" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="14" font-weight="400" fill="#24354b" text-anchor="middle">Token（由 MVC 序列化为 HTTP 200）</text>
+</svg>

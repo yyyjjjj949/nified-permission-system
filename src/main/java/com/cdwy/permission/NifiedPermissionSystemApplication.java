@@ -2,14 +2,12 @@ package com.cdwy.permission;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
-@org.springframework.scheduling.annotation.EnableScheduling
-@org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession(maxInactiveIntervalInSeconds=1800)
 @SpringBootApplication
+@ConfigurationPropertiesScan
 public class NifiedPermissionSystemApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(NifiedPermissionSystemApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(NifiedPermissionSystemApplication.class, args);
+  }
 }

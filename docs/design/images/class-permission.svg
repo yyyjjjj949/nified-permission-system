@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1840" height="1200" viewBox="0 0 1840 1200">
+<rect width="100%" height="100%" fill="white"/>
+<text x="920.0" y="55" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="30" font-weight="700" fill="#24354b" text-anchor="middle">前端权限与 API 资源关联类图</text>
+<text x="920.0" y="87" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#60748c" text-anchor="middle">类和方法取自当前源码 · 虚线空心箭头表示依赖 · Service 位于中心</text>
+<polyline points="920,430 920,325" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="925.2195864093347,335.8053652282321 920,325 914.7804135906653,335.8053652282321" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="650,550 480,550" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="490.8053652282321,544.7804135906653 480,550 490.8053652282321,555.2195864093347" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="1190,550 1360,550" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="1349.1946347717678,555.2195864093347 1360,550 1349.1946347717678,544.7804135906653" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="650,760 480,940" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="483.62451007751537,928.5604664999839 480,940 491.2139260184287,935.7282482219576" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="920,760 920,900" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="914.7804135906653,889.1946347717678 920,900 925.2195864093347,889.1946347717678" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="1190,760 1360,940" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="1348.7860739815712,935.7282482219576 1360,940 1356.3754899224846,928.5604664999839" fill="none" stroke="#758aa4" stroke-width="2"/>
+<rect x="650" y="430" width="540" height="330" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="920.0" y="468" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">PermissionService</text>
+<polyline points="650,485 1190,485" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="664" y="514" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- permissions: PermissionRepository</text>
+<text x="664" y="541" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- bindings: PermissionApiRepository</text>
+<text x="664" y="568" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- resources: ApiResourceService</text>
+<polyline points="650,587 1190,587" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="664" y="617" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ create(Input): View</text>
+<text x="664" y="644" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ bind(Long, Long): void</text>
+<text x="664" y="671" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ status(Long, boolean): View</text>
+<text x="664" y="698" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ tree(Long): List&lt;Tree&gt;</text>
+<rect x="640" y="135" width="560" height="190" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="920.0" y="173" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">«interface» PermissionRepository</text>
+<polyline points="640,190 1200,190" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="654" y="219" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="640,238 1200,238" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="654" y="268" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ existsByParent_Id(Long): boolean</text>
+<text x="654" y="295" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ findAllBySystem_IdOrderById(Long): List&lt;Permission&gt;</text>
+<rect x="40" y="450" width="440" height="210" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="260.0" y="488" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">SystemService</text>
+<polyline points="40,505 480,505" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="534" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="40,553 480,553" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="583" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ require(Long): BusinessSystem</text>
+<text x="54" y="610" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ status(Long, boolean): View</text>
+<rect x="1360" y="450" width="440" height="210" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="1580.0" y="488" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">ApiResourceService</text>
+<polyline points="1360,505 1800,505" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1374" y="534" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="1360,553 1800,553" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1374" y="583" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ require(Long): ApiResource</text>
+<text x="1374" y="610" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ status(Long, boolean): View</text>
+<rect x="40" y="940" width="440" height="190" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="260.0" y="976" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="21" font-weight="700" fill="#24354b" text-anchor="middle">«interface» RolePermissionRepository</text>
+<polyline points="40,995 480,995" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="1024" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="40,1043 480,1043" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="1073" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ existsByPermission_Id(Long): boolean</text>
+<rect x="640" y="900" width="560" height="240" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="920.0" y="938" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">Permission</text>
+<polyline points="640,955 1200,955" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="654" y="984" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- parent: Permission</text>
+<text x="654" y="1011" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- type: MENU | BUTTON</text>
+<text x="654" y="1038" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- system: BusinessSystem</text>
+<polyline points="640,1057 1200,1057" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="654" y="1087" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ getParent(): Permission</text>
+<text x="654" y="1114" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ getType(): PermissionType</text>
+<rect x="1360" y="940" width="440" height="190" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="1580.0" y="977" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="22" font-weight="700" fill="#24354b" text-anchor="middle">«interface» PermissionApiRepository</text>
+<polyline points="1360,995 1800,995" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1374" y="1024" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="1360,1043 1800,1043" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1374" y="1072" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="start">+ findAllByPermission_Id(Long): List&lt;PermissionApi&gt;</text>
+<text x="1374" y="1100" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ existsByResource_Id(Long): boolean</text>
+</svg>

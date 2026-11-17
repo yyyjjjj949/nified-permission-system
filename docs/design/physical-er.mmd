@@ -1,0 +1,81 @@
+erDiagram
+    sys_department o|--o{ sys_department : parent_id
+    sys_department o|--o{ sys_user : department_id
+    sys_user ||--|| sys_account : user_id
+    sys_user ||--o{ sys_user_role : user_id
+    sys_role ||--o{ sys_user_role : role_id
+    sys_role ||--o{ sys_role_permission : role_id
+    sys_permission ||--o{ sys_role_permission : permission_id
+    biz_system ||--o{ sys_permission : system_id
+    sys_permission o|--o{ sys_permission : parent_id
+    biz_system ||--o{ api_resource : system_id
+    sys_permission ||--o{ permission_api : permission_id
+    api_resource ||--o{ permission_api : resource_id
+
+    sys_department {
+        bigint id PK
+        varchar name UK
+        bigint parent_id FK
+    }
+    sys_user {
+        bigint id PK
+        varchar display_name
+        bigint department_id FK
+        enum person_type
+        datetime expires_at
+        boolean enabled
+        boolean administrator
+        bigint credential_version
+    }
+    sys_account {
+        bigint user_id PK,FK
+        varchar username UK
+        varchar password_hash
+    }
+    sys_role {
+        bigint id PK
+        varchar code UK
+        varchar name
+        varchar description
+        boolean enabled
+    }
+    biz_system {
+        bigint id PK
+        varchar code UK
+        varchar name
+        varchar base_url
+        boolean enabled
+    }
+    sys_permission {
+        bigint id PK
+        bigint system_id FK
+        varchar code UK
+        varchar name
+        enum type
+        varchar menu_path
+        bigint parent_id FK
+        boolean active
+    }
+    api_resource {
+        bigint id PK
+        bigint system_id FK
+        varchar name
+        varchar method
+        varchar path
+        boolean active
+    }
+    sys_user_role {
+        bigint id PK
+        bigint user_id FK
+        bigint role_id FK
+    }
+    sys_role_permission {
+        bigint id PK
+        bigint role_id FK
+        bigint permission_id FK
+    }
+    permission_api {
+        bigint id PK
+        bigint permission_id FK
+        bigint resource_id FK
+    }

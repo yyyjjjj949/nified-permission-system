@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1080" viewBox="0 0 1700 1080">
+<rect width="100%" height="100%" fill="white"/>
+<text x="850.0" y="55" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="30" font-weight="700" fill="#24354b" text-anchor="middle">统一权限管理系统核心 ER 图</text>
+<text x="850.0" y="87" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#60748c" text-anchor="middle">六类核心业务对象 · 三组多对多关联 · 登录 Token 不是持久化实体</text>
+<polyline points="420,260 670,260" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="545.0" y="237" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="middle">0..1              0..N</text>
+<polyline points="1030,260 1280,260" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1155.0" y="237" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="middle">M                 N</text>
+<polyline points="1460,360 1460,535 850,535 850,720" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1140" y="513" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="400" fill="#24354b" text-anchor="middle">M : N 角色授权</text>
+<polyline points="420,825 670,825" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="545.0" y="802" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="middle">1                 0..N</text>
+<polyline points="1030,825 1280,825" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1155.0" y="802" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="middle">M                 N</text>
+<polyline points="240,930 240,1000 1460,1000 1460,930" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="850" y="1028" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="400" fill="#24354b" text-anchor="middle">1 : N 应用拥有 API 资源</text>
+<rect x="60" y="170" width="360" height="190" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="240.0" y="207" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="25" font-weight="700" fill="#24354b" text-anchor="middle">部门</text>
+<polyline points="60,224 420,224" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="80" y="259" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">id</text>
+<text x="80" y="291" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">名称</text>
+<text x="80" y="323" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">上级部门</text>
+<rect x="670" y="170" width="360" height="190" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="850.0" y="207" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="25" font-weight="700" fill="#24354b" text-anchor="middle">用户</text>
+<polyline points="670,224 1030,224" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="690" y="259" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">id / 登录名 / 姓名</text>
+<text x="690" y="291" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">身份属性 / 有效期</text>
+<text x="690" y="323" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">所属部门</text>
+<rect x="1280" y="170" width="360" height="190" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="1460.0" y="207" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="25" font-weight="700" fill="#24354b" text-anchor="middle">角色</text>
+<polyline points="1280,224 1640,224" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1300" y="259" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">id / 编码 / 名称</text>
+<text x="1300" y="291" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">启用状态</text>
+<rect x="60" y="720" width="360" height="210" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="240.0" y="757" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="25" font-weight="700" fill="#24354b" text-anchor="middle">应用</text>
+<polyline points="60,774 420,774" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="80" y="809" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">id / 编码 / 名称</text>
+<text x="80" y="841" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">启用状态</text>
+<rect x="670" y="720" width="360" height="210" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="850.0" y="757" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="25" font-weight="700" fill="#24354b" text-anchor="middle">前端权限</text>
+<polyline points="670,774 1030,774" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="690" y="809" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">id / 编码 / 名称</text>
+<text x="690" y="841" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">类型 MENU 或 BUTTON</text>
+<text x="690" y="873" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">父菜单 / 启用状态</text>
+<rect x="1280" y="720" width="360" height="210" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="1460.0" y="757" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="25" font-weight="700" fill="#24354b" text-anchor="middle">API 资源</text>
+<polyline points="1280,774 1640,774" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1300" y="809" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">id / 名称 / 所属应用</text>
+<text x="1300" y="841" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">HTTP 方法 / 路径</text>
+<text x="1300" y="873" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="19" font-weight="400" fill="#24354b" text-anchor="start">启用状态</text>
+<polyline points="100,170 100,130 370,130 370,170" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="235" y="112" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">0..1 上级 / 0..N 子部门</text>
+<polyline points="720,930 720,970 980,970 980,930" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="850" y="991" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#24354b" text-anchor="middle">0..1 父菜单 / 0..N 子节点</text>
+</svg>

@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-11-17T06:51:52.762663+00:00",
+  "baseline": "d2f243819c74b069f869ecd53a82cdbb6b2eca2d",
+  "branch": "main",
+  "repository": "https://github.com/yyyjjjj949/nified-permission-system",
+  "sourceFiles": 65,
+  "springServices": [
+    "AdminBootstrapService",
+    "ApiResourceService",
+    "AuthService",
+    "AuthorizationService",
+    "DepartmentService",
+    "JwtTokenService",
+    "PermissionService",
+    "RoleService",
+    "SystemService",
+    "UserService"
+  ],
+  "serviceCount": 10,
+  "jpaEntities": [
+    "ApiResource",
+    "BusinessSystem",
+    "Department",
+    "Permission",
+    "PermissionApi",
+    "Role",
+    "RolePermission",
+    "UserAccount",
+    "UserRole"
+  ],
+  "conceptualEntityCount": 6,
+  "persistentTableCount": 10,
+  "foreignKeyCount": 12,
+  "httpOperationCount": 47,
+  "tests": {
+    "tests": 21,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "jacoco": {
+    "instruction": {
+      "covered": 3123,
+      "missed": 637,
+      "percent": 83.06
+    },
+    "branch": {
+      "covered": 179,
+      "missed": 79,
+      "percent": 69.38
+    },
+    "line": {
+      "covered": 729,
+      "missed": 122,
+      "percent": 85.66
+    },
+    "complexity": {
+      "covered": 352,
+      "missed": 132,
+      "percent": 72.73
+    },
+    "method": {
+      "covered": 291,
+      "missed": 64,
+      "percent": 81.97
+    },
+    "class": {
+      "covered": 69,
+      "missed": 4,
+      "percent": 94.52
+    }
+  },
+  "frontendBuild": "vue-tsc --noEmit && vite build: passed",
+  "uiVerification": "../design/ui-verification.json",
+  "diagramVerification": "../design/diagram-validation.json",
+  "diagramVisualInspection": "7 PNG diagrams opened and checked",
+  "mysqlValidation": "isolated H2 MySQL-mode structural comparison only; real MySQL not run",
+  "serverDeploymentValidated": false,
+  "oldDatabaseMigration": false
+}

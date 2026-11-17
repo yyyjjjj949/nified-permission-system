@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="1020" viewBox="0 0 1640 1020">
+<rect width="100%" height="100%" fill="white"/>
+<text x="820.0" y="55" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="30" font-weight="700" fill="#24354b" text-anchor="middle">JWT 登录服务类图</text>
+<text x="820.0" y="87" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#60748c" text-anchor="middle">类和方法取自当前源码 · 虚线空心箭头表示依赖 · Service 位于中心</text>
+<polyline points="820,355 820,295" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="825.2195864093347,305.8053652282321 820,295 814.7804135906653,305.8053652282321" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="1090,480 1210,480" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="1199.1946347717678,485.21958640933474 1210,480 1199.1946347717678,474.78041359066526" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="820,675 820,825" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="814.7804135906653,814.1946347717678 820,825 825.2195864093347,814.1946347717678" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="550,675 430,795" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="433.9497420810505,783.66864802889 430,795 441.33135197111,791.0502579189495" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="1090,675 1210,795" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="1198.66864802889,791.0502579189495 1210,795 1206.0502579189495,783.66864802889" fill="none" stroke="#758aa4" stroke-width="2"/>
+<polyline points="550,480 430,480" fill="none" stroke="#758aa4" stroke-width="2" stroke-dasharray="8 8"/>
+<polyline points="440.8053652282321,474.78041359066526 430,480 440.8053652282321,485.21958640933474" fill="none" stroke="#758aa4" stroke-width="2"/>
+<rect x="550" y="355" width="540" height="320" fill="#e9f0fa" stroke="#24354b" stroke-width="2"/>
+<text x="820.0" y="393" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">AuthService</text>
+<polyline points="550,410 1090,410" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="564" y="439" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- users: UserAccountRepository</text>
+<text x="564" y="466" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- encoder: PasswordEncoder</text>
+<text x="564" y="493" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- tokens: JwtTokenService</text>
+<text x="564" y="520" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- userService: UserService</text>
+<polyline points="550,539 1090,539" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="564" y="569" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ login(Login): Token</text>
+<text x="564" y="596" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ resolve(String): UserAccount</text>
+<text x="564" y="623" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ changePassword(Long, PasswordChange): void</text>
+<rect x="590" y="125" width="460" height="170" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="820.0" y="163" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">«interface» UserAccountRepository</text>
+<polyline points="590,180 1050,180" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="604" y="209" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="590,228 1050,228" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="604" y="258" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ findByUsername(String): Optional&lt;UserAccount&gt;</text>
+<text x="604" y="285" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ lockById(Long): Optional&lt;UserAccount&gt;</text>
+<rect x="1210" y="390" width="390" height="200" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="1405.0" y="428" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">JwtTokenService</text>
+<polyline points="1210,445 1600,445" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1224" y="474" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- signingKey: SecretKey</text>
+<polyline points="1210,493 1600,493" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1224" y="523" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ issue(UserAccount): String</text>
+<text x="1224" y="550" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ verify(String): Identity</text>
+<text x="1224" y="577" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ expiresIn(): long</text>
+<rect x="590" y="825" width="460" height="170" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="820.0" y="863" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">UserService</text>
+<polyline points="590,880 1050,880" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="604" y="909" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="590,928 1050,928" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="604" y="958" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ password(Long, String): void</text>
+<text x="604" y="985" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ get(Long): UserView</text>
+<rect x="40" y="795" width="390" height="200" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="235.0" y="833" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">UserAccount</text>
+<polyline points="40,850 430,850" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="879" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- credentialVersion: long</text>
+<text x="54" y="906" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- passwordHash: String</text>
+<polyline points="40,925 430,925" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="955" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ usable(Instant): boolean</text>
+<rect x="1210" y="795" width="390" height="200" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="1405.0" y="833" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">AuthDtos.Token</text>
+<polyline points="1210,850 1600,850" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1224" y="879" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- tokenType: String</text>
+<text x="1224" y="906" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">- user: UserView</text>
+<polyline points="1210,925 1600,925" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="1224" y="955" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ accessToken(): String</text>
+<text x="1224" y="982" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ expiresIn(): long</text>
+<rect x="40" y="385" width="390" height="190" fill="#f8fafc" stroke="#24354b" stroke-width="2"/>
+<text x="235.0" y="423" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="23" font-weight="700" fill="#24354b" text-anchor="middle">«interface» PasswordEncoder</text>
+<polyline points="40,440 430,440" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="469" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">—</text>
+<polyline points="40,488 430,488" fill="none" stroke="#758aa4" stroke-width="2"/>
+<text x="54" y="518" font-family="Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#24354b" text-anchor="start">+ matches(CharSequence, String): boolean</text>
+</svg>

@@ -1,0 +1,257 @@
+{
+  "API_RESOURCE": [
+    {
+      "COLUMN_NAME": "ACTIVE",
+      "DATA_TYPE": "BOOLEAN",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "METHOD",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "SYSTEM_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "NAME",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "PATH",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    }
+  ],
+  "BIZ_SYSTEM": [
+    {
+      "COLUMN_NAME": "ENABLED",
+      "DATA_TYPE": "BOOLEAN",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "CODE",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "NAME",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "BASE_URL",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "YES"
+    }
+  ],
+  "PERMISSION_API": [
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "PERMISSION_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "RESOURCE_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    }
+  ],
+  "SYS_ACCOUNT": [
+    {
+      "COLUMN_NAME": "USER_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "USERNAME",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "PASSWORD_HASH",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    }
+  ],
+  "SYS_DEPARTMENT": [
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "PARENT_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "YES"
+    },
+    {
+      "COLUMN_NAME": "NAME",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    }
+  ],
+  "SYS_PERMISSION": [
+    {
+      "COLUMN_NAME": "ACTIVE",
+      "DATA_TYPE": "BOOLEAN",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "PARENT_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "YES"
+    },
+    {
+      "COLUMN_NAME": "SYSTEM_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "CODE",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "NAME",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "MENU_PATH",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "YES"
+    },
+    {
+      "COLUMN_NAME": "TYPE",
+      "DATA_TYPE": "ENUM",
+      "IS_NULLABLE": "NO"
+    }
+  ],
+  "SYS_ROLE": [
+    {
+      "COLUMN_NAME": "ENABLED",
+      "DATA_TYPE": "BOOLEAN",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "CODE",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "NAME",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "DESCRIPTION",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "YES"
+    }
+  ],
+  "SYS_ROLE_PERMISSION": [
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "PERMISSION_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "ROLE_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    }
+  ],
+  "SYS_USER": [
+    {
+      "COLUMN_NAME": "ADMINISTRATOR",
+      "DATA_TYPE": "BOOLEAN",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "ENABLED",
+      "DATA_TYPE": "BOOLEAN",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "CREDENTIAL_VERSION",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "DEPARTMENT_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "YES"
+    },
+    {
+      "COLUMN_NAME": "EXPIRES_AT",
+      "DATA_TYPE": "TIMESTAMP WITH TIME ZONE",
+      "IS_NULLABLE": "YES"
+    },
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "DISPLAY_NAME",
+      "DATA_TYPE": "CHARACTER VARYING",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "PERSON_TYPE",
+      "DATA_TYPE": "ENUM",
+      "IS_NULLABLE": "NO"
+    }
+  ],
+  "SYS_USER_ROLE": [
+    {
+      "COLUMN_NAME": "ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "ROLE_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    },
+    {
+      "COLUMN_NAME": "USER_ID",
+      "DATA_TYPE": "BIGINT",
+      "IS_NULLABLE": "NO"
+    }
+  ]
+}

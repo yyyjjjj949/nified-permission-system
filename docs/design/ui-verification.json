@@ -1,0 +1,31 @@
+{
+  "verifiedAt": "2026-11-06T19:09:31.719Z",
+  "baseUrl": "http://127.0.0.1:18781",
+  "engine": "headless Microsoft Edge / Playwright",
+  "checks": [
+    "管理员登录与管理导航可用",
+    "部门管理通过界面创建成功",
+    "应用管理通过界面创建成功",
+    "角色管理通过界面创建成功",
+    "菜单与按钮通过界面创建成功",
+    "菜单与按钮通过界面创建成功",
+    "API 资源通过界面创建成功",
+    "用户管理通过界面创建成功",
+    "普通编辑对话框可以保存姓名",
+    "用户管理通过界面创建成功",
+    "临时人员日期往返编辑正常",
+    "用户角色、角色权限、权限API三组关系界面可操作",
+    "同标签页刷新保留登录",
+    "普通用户只见个人工作区，菜单祖先容器与课程API鉴权成功",
+    "本人改密后退出并要求重新登录"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    "ui-login.png",
+    "ui-permissions.png",
+    "ui-resources.png",
+    "ui-grants.png",
+    "ui-my-permissions.png"
+  ],
+  "temporaryLocalDataOnly": true
+}

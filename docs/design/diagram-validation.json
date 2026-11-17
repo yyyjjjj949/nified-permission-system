@@ -1,0 +1,96 @@
+[
+  {
+    "name": "class-auth",
+    "type": "class",
+    "verifiedSourceClasses": [
+      "AuthService",
+      "UserAccountRepository",
+      "JwtTokenService",
+      "UserService",
+      "UserAccount",
+      "AuthDtos.Token",
+      "PasswordEncoder"
+    ],
+    "checks": [
+      "noOverlap",
+      "edgesClearOfBoxes",
+      "serviceCentered",
+      "sourceMethodsExist",
+      "textFits"
+    ]
+  },
+  {
+    "name": "class-permission",
+    "type": "class",
+    "verifiedSourceClasses": [
+      "PermissionService",
+      "PermissionRepository",
+      "SystemService",
+      "ApiResourceService",
+      "RolePermissionRepository",
+      "Permission",
+      "PermissionApiRepository"
+    ],
+    "checks": [
+      "noOverlap",
+      "edgesClearOfBoxes",
+      "serviceCentered",
+      "sourceMethodsExist",
+      "textFits"
+    ]
+  },
+  {
+    "name": "sequence-login",
+    "type": "sequence",
+    "checks": [
+      "executionTopAligned",
+      "messagesTouchActivationEdges",
+      "independentCallsHaveSeparateActivations",
+      "noFragmentCutsExecutions",
+      "lifelineTextFits"
+    ]
+  },
+  {
+    "name": "sequence-authorize",
+    "type": "sequence",
+    "checks": [
+      "executionTopAligned",
+      "messagesTouchActivationEdges",
+      "independentCallsHaveSeparateActivations",
+      "noFragmentCutsExecutions",
+      "lifelineTextFits"
+    ]
+  },
+  {
+    "name": "sequence-password-failure",
+    "type": "sequence",
+    "checks": [
+      "executionTopAligned",
+      "messagesTouchActivationEdges",
+      "independentCallsHaveSeparateActivations",
+      "noFragmentCutsExecutions",
+      "lifelineTextFits"
+    ]
+  },
+  {
+    "name": "er-core",
+    "type": "conceptual-er",
+    "entities": 6,
+    "manyToMany": [
+      "用户-角色",
+      "角色-前端权限",
+      "前端权限-API资源"
+    ]
+  },
+  {
+    "name": "er-physical",
+    "type": "physical-er",
+    "tables": 10,
+    "foreignKeys": 12,
+    "checks": [
+      "persistentSchemaMatches",
+      "noOverlap",
+      "edgesClearOfBoxes"
+    ]
+  }
+]

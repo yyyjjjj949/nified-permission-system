@@ -1,59 +1,50 @@
 package com.cdwy.permission.config;
 
 import com.cdwy.permission.exception.ForbiddenException;
-import com.cdwy.permission.repository.UserAccountRepository;
-import com.cdwy.permission.service.JwtTokenService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.cdwy.permission.service.auth.AuthService;
+import com.cdwy.permission.service.rbac.AuthorizationService;
+import jakarta.servlet.http.*;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.*;
+import org.springframework.web.servlet.config.annotation.*;
 
-/** Deny ordinary users by default on API routes, including future management endpoints. */
 @Configuration
 public class ApiAccessConfig implements WebMvcConfigurer {
-    private final JwtTokenService tokens;
-    private final UserAccountRepository users;
-    private final com.cdwy.permission.platform.PlatformStore platform;
+  private final AuthService auth;
+  private final AuthorizationService authorization;
 
-    public ApiAccessConfig(JwtTokenService tokens, UserAccountRepository users,com.cdwy.permission.platform.PlatformStore platform) {
-        this.tokens = tokens;
-        this.users = users;
-        this.platform = platform;
-    }
+  public ApiAccessConfig(AuthService auth, AuthorizationService authorization) {
+    this.auth = auth;
+    this.authorization = authorization;
+  }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new HandlerInterceptor() {
-            @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry
+        .addInterceptor(
+            new HandlerInterceptor() {
+              @Override
+              public boolean preHandle(
+                  HttpServletRequest request, HttpServletResponse response, Object handler) {
                 response.setHeader("Cache-Control", "no-store");
+                if (!(handler instanceof HandlerMethod method)) return true;
+                var user = auth.resolve(request.getHeader("Authorization"));
+                request.setAttribute(
+                    CurrentUser.class.getName(),
+                    new CurrentUser(user.getId(), user.getAdministrator()));
+                BusinessAccess rule = method.getMethodAnnotation(BusinessAccess.class);
+                if (rule == null) rule = method.getBeanType().getAnnotation(BusinessAccess.class);
+                String route = request.getRequestURI().substring(request.getContextPath().length());
+                if (rule != null)
+                  authorization.requireApi(user.getId(), rule.value(), request.getMethod(), route);
+                else if (!route.equals("/api/me")
+                    && !route.startsWith("/api/me/")
+                    && !user.getAdministrator()) throw new ForbiddenException("此管理操作需要管理员身份");
                 return true;
-            }
-            @Override public void afterCompletion(HttpServletRequest request,HttpServletResponse response,Object handler,Exception error){
-                if(!java.util.Set.of("GET","HEAD","OPTIONS").contains(request.getMethod())&&response.getStatus()<400&&request.getHeader("Authorization")!=null&&!request.getRequestURI().startsWith("/api/integration/")){
-                    try{long actor=request.getAttribute("audit.actor") instanceof Long saved?saved:tokens.requireUserId(request.getHeader("Authorization"));platform.audit(actor,"HTTP_"+request.getMethod(),request.getRequestURI(),"SUCCESS");}catch(com.cdwy.permission.exception.AuthenticationFailedException ignored){/* Logout/password change intentionally revoked the bearer. */}
-                }
-            }
-        }).addPathPatterns("/api/**");
-        registry.addInterceptor(new HandlerInterceptor(){
-            @Override public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object handler){
-                long id=tokens.requireUserId(request.getHeader("Authorization"));
-                request.setAttribute("audit.actor",id);
-                if(platform.mustChange(id)&&!java.util.Set.of("/api/platform/self","/api/platform/self/password").contains(request.getRequestURI()))throw new ForbiddenException("请先修改初始密码");return true;
-            }
-        }).addPathPatterns("/api/**").excludePathPatterns("/api/auth/login","/api/auth/logout","/api/auth/refresh","/api/auth/me","/api/integration/**","/api/oidc/**");
-        registry.addInterceptor(new HandlerInterceptor() {
-            @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-                Long id = tokens.requireUserId(request.getHeader("Authorization"));
-                if (!users.findById(id).map(user -> user.isAdministrator()).orElse(false)) {
-                    throw new ForbiddenException("管理接口仅允许管理员访问");
-                }
-                return true;
-            }
-        }).addPathPatterns("/api/**")
-          .excludePathPatterns("/api/auth/login", "/api/auth/logout", "/api/auth/refresh", "/api/auth/me", "/api/demo/expenses", "/api/platform/**", "/api/integration/**", "/api/oidc/**");
-    }
+              }
+            })
+        .addPathPatterns("/api/**")
+        .excludePathPatterns("/api/auth/login");
+  }
 }
